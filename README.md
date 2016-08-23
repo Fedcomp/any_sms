@@ -1,5 +1,7 @@
 # ActiveSms
 
+[![Build Status](https://travis-ci.org/Fedcomp/active_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/active_sms)
+
 Easily send sms using various sms backends!
 The gem is work in progress now.
 

@@ -1,4 +1,5 @@
 require "active_sms/version"
 
-module ActiveSms
+# rubocop:ignore Style/Documentation
+module ActiveSMS
 end

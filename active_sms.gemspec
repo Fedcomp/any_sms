@@ -5,12 +5,13 @@ require 'active_sms/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "active_sms"
-  spec.version       = ActiveSms::VERSION
+  spec.version       = ActiveSMS::VERSION
   spec.authors       = ["Fedcomp"]
   spec.email         = ["aglergen@gmail.com"]
 
-  spec.summary       = %q{Easily send sms using various sms backends!}
-  spec.description   = %q{Say you want to send sms in your app.
+  spec.summary       = "Easily send sms using various sms backends!"
+  spec.description   = <<-DESCRIPTION
+                          Say you want to send sms in your app.
                           You think it's simple.
                           What (most likely) you do?
                           you create simple class to do it.
@@ -19,11 +20,14 @@ Gem::Specification.new do |spec|
                           in different environments, or even
                           use multiple backends in single environment.
                           This gems aims at solving most common cases
-                          for sending sms in your app}
+                          for sending sms in your app
+                        DESCRIPTION
+
   spec.homepage      = "https://github.com/Fedcomp/active_sms"
   spec.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
+  # Prevent pushing this gem to RubyGems.org.
+  # To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
@@ -31,7 +35,9 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files -z`
+                       .split("\x0")
+                       .reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]

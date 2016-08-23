@@ -1,3 +1,3 @@
-module ActiveSms
-  VERSION = "0.1.0"
+module ActiveSMS
+  VERSION = "0.0.1".freeze
 end
