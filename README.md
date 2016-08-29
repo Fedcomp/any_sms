@@ -1,4 +1,4 @@
-# ActiveSms
+# ActiveSMS
 
 [![Build Status](https://travis-ci.org/Fedcomp/active_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/active_sms)
 

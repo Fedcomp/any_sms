@@ -3,3 +3,10 @@ Style/StringLiterals:
 
 Metrics/LineLength:
   Max: 90
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# I need to use singleton so gem stays simple
+Style/ClassVars:
+  Enabled: false
