@@ -1,5 +1,9 @@
 sudo: false
+cache: bundler
 language: ruby
-rvm:
-  - 2.3.1
-before_install: gem install bundler -v 1.12.5
+rvm: 2.3.1
+install:
+  - bundle install --retry=3
+script:
+  - bundle exec rake
+  - bundle exec rubocop
