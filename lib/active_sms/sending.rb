@@ -5,7 +5,6 @@ module ActiveSMS
   end
 
   def self.current_backend
-    raise "No sms backends registered!" unless backends.values.any?
-    backends.values.last
+    ActiveSMS.config.backends[ActiveSMS.config.default_backend]
   end
 end
