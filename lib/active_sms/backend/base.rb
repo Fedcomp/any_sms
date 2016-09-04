@@ -6,5 +6,11 @@ module ActiveSMS::Backend
       raise NotImplementedError,
             "You should create your own class for every sms service you use"
     end
+
+    protected
+
+    def respond_with_status(status)
+      ActiveSMS::Response.new(status: status)
+    end
   end
 end
