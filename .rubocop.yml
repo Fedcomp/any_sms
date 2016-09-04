@@ -1,5 +1,6 @@
 Style/StringLiterals:
-  Enabled: false
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
 
 Metrics/LineLength:
   Max: 90
