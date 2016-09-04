@@ -33,7 +33,7 @@ module ActiveSMS
       @default_backend = value
     end
 
-    def register_backend(key, classname)
+    def register_backend(key, classname, params = {})
       raise ArgumentError, "backend key must be a symbol!" unless key.is_a? Symbol
 
       unless classname.class == Class
@@ -44,8 +44,7 @@ module ActiveSMS
         raise ArgumentError, "backend must provide method send_sms"
       end
 
-      @backends ||= {}
-      @backends[key] = classname
+      define_backend(key, classname, params)
     end
 
     def remove_backend(key)
@@ -55,6 +54,16 @@ module ActiveSMS
 
       @backends.delete key
       true
+    end
+
+    private
+
+    def define_backend(key, classname, params)
+      @backends ||= {}
+      @backends[key] = {
+        class: classname,
+        params: params
+      }
     end
   end
 end

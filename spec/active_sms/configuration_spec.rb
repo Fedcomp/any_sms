@@ -9,8 +9,11 @@ describe ActiveSMS do
         expect(subject.default_backend).to eq(:null_sender)
       end
 
-      specify "backends is only :null_sender" do
-        expect(subject.backends).to eq(null_sender: ActiveSMS::Backend::NullSender)
+      it "backends is only :null_sender" do
+        expect(subject.backends).to eq(null_sender: {
+                                         class: ActiveSMS::Backend::NullSender,
+                                         params: {}
+                                       })
       end
     end
 
@@ -66,10 +69,13 @@ describe ActiveSMS do
     describe "#register_backend" do
       it "works with proper params" do
         ActiveSMS.configure do |c|
-          c.register_backend :base, ActiveSMS::Backend::Base
+          c.register_backend :base, ActiveSMS::Backend::Base, token: :secret
         end
 
-        expect(ActiveSMS.config.backends).to include(base: ActiveSMS::Backend::Base)
+        expect(ActiveSMS.config.backends).to include(base: {
+                                                       class: ActiveSMS::Backend::Base,
+                                                       params: { token: :secret }
+                                                     })
       end
 
       it "ensures backend_key is a symbol" do

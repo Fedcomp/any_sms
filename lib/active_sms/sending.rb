@@ -1,10 +1,19 @@
 # rubocop:ignore Style/Documentation
 module ActiveSMS
-  def self.send_sms(phone, text)
-    current_backend.new.send_sms(phone, text)
-  end
+  class << self
+    def send_sms(phone, text)
+      current_backend.new(current_backend_params)
+                     .send_sms(phone, text)
+    end
 
-  def self.current_backend
-    ActiveSMS.config.backends[ActiveSMS.config.default_backend]
+    def current_backend
+      ActiveSMS.config.backends[ActiveSMS.config.default_backend][:class]
+    end
+
+    private
+
+    def current_backend_params
+      ActiveSMS.config.backends[ActiveSMS.config.default_backend][:params]
+    end
   end
 end
