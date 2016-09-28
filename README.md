@@ -1,6 +1,7 @@
 # ActiveSMS
 
 [![Build Status](https://travis-ci.org/Fedcomp/active_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/active_sms)
+[![Gem Version](https://badge.fury.io/rb/active_sms.svg)](https://badge.fury.io/rb/active_sms)
 
 Easily send sms using various sms backends!
 The gem is work in progress now.

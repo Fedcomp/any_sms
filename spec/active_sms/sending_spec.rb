@@ -27,5 +27,24 @@ describe ActiveSMS do
 
       ActiveSMS.send_sms(phone, sms_text)
     end
+
+    context "non-default backend" do
+      it "should be available in sending" do
+        expect_any_instance_of(ActiveSMS::Backend::Base)
+          .to receive(:send_sms).and_return(nil)
+
+        ActiveSMS.configure do |c|
+          c.register_backend :special_backend, ActiveSMS::Backend::Base
+          c.default_backend = :null_sender
+        end
+
+        ActiveSMS.send_sms(phone, sms_text, backend: :special_backend)
+      end
+
+      it "should throw exception if backend is not registered" do
+        expect { ActiveSMS.send_sms(phone, sms_text, backend: :special_backend) }
+          .to raise_exception(ArgumentError, "special_backend backend is not registered")
+      end
+    end
   end
 end
