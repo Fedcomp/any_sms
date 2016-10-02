@@ -13,3 +13,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(%r{^lib/(.+)\.rb$}) { |m| rspec.spec.call(m[1]) }
   watch(%r{^spec/support/(.+)\.rb$}) { |m| rspec.spec.call(m[1]) }
 end
+
+guard "yard" do
+  watch(%r{lib/.+\.rb})
+end

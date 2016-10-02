@@ -1,21 +1,26 @@
-# rubocop:ignore Style/Documentation
+# :nodoc:
 module ActiveSMS
+  # @return [ActiveSMS::Configuration] object with configuration options
   def self.config
     @@config ||= Configuration.new
   end
 
+  # Allows to configure ActiveSMS options and register backends
   def self.configure
     yield(config)
   end
 
+  # resets ActiveSMS configuration to default
   def self.reset!
     @@config = nil
   end
 
-  # TODO: Documentation
-  # rubocop:ignore Style/Documentation
+  # Configuration object for ActiveSMS
   class Configuration
+    # returns key of the default sms backend
     attr_reader :default_backend
+
+    # returns list of registered sms backends
     attr_reader :backends
 
     def initialize
@@ -23,6 +28,9 @@ module ActiveSMS
       self.default_backend = :null_sender
     end
 
+    # Specify default sms backend. It must be registered.
+    #
+    # @value [Symbol] Backend key which will be used as default
     def default_backend=(value)
       raise ArgumentError, "default_backend must be a symbol!" unless value.is_a? Symbol
 
@@ -33,6 +41,11 @@ module ActiveSMS
       @default_backend = value
     end
 
+    # Register sms provider backend
+    #
+    # @key [Symbol] Key for acessing backend in any part of ActiveSMS
+    # @classname [Class] Real class implementation of sms backend
+    # @params [Hash] Optional params for backend. Useful for passing tokens and options
     def register_backend(key, classname, params = {})
       raise ArgumentError, "backend key must be a symbol!" unless key.is_a? Symbol
 
@@ -47,6 +60,9 @@ module ActiveSMS
       define_backend(key, classname, params)
     end
 
+    # Removes registered sms backend
+    #
+    # @key [Symbol] Key of already registered backend
     def remove_backend(key)
       if key == default_backend
         raise ArgumentError, "Removing default_backend is prohibited"
