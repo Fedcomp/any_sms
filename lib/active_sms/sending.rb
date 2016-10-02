@@ -1,6 +1,11 @@
-# rubocop:ignore Style/Documentation
+# :nodoc:
 module ActiveSMS
   class << self
+    # Core of the gem, method responsible for sending sms
+    #
+    # @phone [String] Phone number for sms
+    # @text  [String] Text for sms
+    # @args  [Hash] Additional options for delivery. Currently only :backend
     def send_sms(phone, text, args = {})
       backend_name = args.delete(:backend)
       backend_class(backend_name).new(backend_params(backend_name))
