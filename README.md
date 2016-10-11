@@ -243,11 +243,11 @@ For now you may just mock `ActiveSMS.send_sms` and check it was executed.
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fedcomp/active_sms
 
 ## Submitting a Pull Request
-1. [Fork][fork] the [official repository][repo].
-2. [Create a topic branch.][branch]
+1. Fork the [official repository](https://github.com/Fedcomp/active_sms).
+2. Create a topic branch.
 3. Implement your feature or bug fix.
 4. Add, commit, and push your changes.
-5. [Submit a pull request.][pr]
+5. Submit a pull request.
 
 * Please add tests if you changed code. Contributions without tests won't be accepted.
 * If you don't know how to add tests, please put in a PR and leave a comment
