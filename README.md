@@ -21,7 +21,11 @@ Then somewhere in your initialization code:
 
 ```ruby
 ActiveSMS.configure do |config|
-  c.register_backend :my_backend_name, ActiveSMS::Backend::NullSender
+  c.register_backend :my_backend_name,
+                     ActiveSMS::Backend::Logger,
+                     logger: Logger.new(STDOUT),
+                     severity: :info
+
   c.default_backend = :my_backend_name
 end
 ```
@@ -32,7 +36,8 @@ Now, whenever you need to send SMS, just do:
 phone = "799999999"
 text = "My sms text"
 
-ActiveSMS.send_sms(phone, text)
+# Should print to console [SMS] 79999999999: text
+ActiveSMS.send_sms("79999999999", "text")
 ```
 
 Now your code is capable of sending sms.
