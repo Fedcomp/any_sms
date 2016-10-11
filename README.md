@@ -20,6 +20,9 @@ gem "active_sms"
 Then somewhere in your initialization code:
 
 ```ruby
+require "active_sms"
+require "logger"
+
 ActiveSMS.configure do |config|
   c.register_backend :my_backend_name,
                      ActiveSMS::Backend::Logger,
@@ -46,12 +49,12 @@ Later you may add any sms-backend you want, or even write your own.
 ### Adding real sms backend
 
 If you followed steps above, you code still doesn't *really* send sms.
-It uses `ActiveSMS::Backend::NullSender`
-which actually does nothing when called.
-To actually send sms you need to pick gem-provider
-or write your own simple class.
+It uses `ActiveSMS::Backend::Logger`
+which actually just print sms contents to console.
+To actually send sms you need *gem-provider*
+or your own simple class.
 
-At this moment i made ready to use implementation for only one service:
+At this moment i made ready to use implementation for only one sms service:
 
 <table>
   <tr>
@@ -82,12 +85,13 @@ class ActiveSMS::Backend::MyCustomBackend < ActiveSMS::Backend::Base
     # your initialization which parses params if needed.
     # the params here is the ones you set in initializer
 
+    # (you may also use keyword arguments instead)
     @token = params.delete(:token)
   end
 
   def send_sms(phone, sms_text)
     # your code to call your sms service
-    # or somehow send actual sms
+    # or somehow else send actual sms
 
     # if everything went fine, you may use helper from base class:
     respond_with_status :success
@@ -101,6 +105,9 @@ end
 Then in initializer:
 
 ```ruby
+require "active_sms"
+require_relative "mycustombackend"
+
 ActiveSMS.configure do |c|
   c.register_backend :my_custom_backend,
                      ActiveSMS::Backend::MyCustomBackend,
@@ -130,6 +137,9 @@ end
 You can specify which backend to use per call:
 
 ```ruby
+require "active_sms"
+require_relative "mycustombackend"
+
 ActiveSMS.configure do |c|
   c.register_backend :my_custom_backend,
                      ActiveSMS::Backend::MyCustomBackend,
@@ -161,6 +171,10 @@ to actually send them using your service.
 Here's how you can achieve that:
 
 ```ruby
+require "active_sms"
+require_relative "mycustombackend"
+require_relative "mycustombackend2"
+
 ActiveSMS.configure do |c|
   if development?
     c.register_backend :my_custom_backend,
@@ -168,7 +182,7 @@ ActiveSMS.configure do |c|
                        logger: Logger.new(STDOUT),
                        severity: :info
 
-   # You can also specify different formatter for second one
+   # You can also, for example, specify different formatter for second one
    logger = Logger.new(STDOUT)
    logger.formatter = proc do |severity, datetime, progname, msg|
      "[MYBackend2]: #{msg}\n"
@@ -181,6 +195,7 @@ ActiveSMS.configure do |c|
   end
 
   if test?
+    # Null sender does nothing when called for sending sms
     c.register_backend :my_custom_backend,  ActiveSMS::Backend::NullSender
     c.register_backend :my_custom_backend2, ActiveSMS::Backend::NullSender
   end
@@ -211,8 +226,8 @@ ActiveSMS.send_sms(phone, text, backend: :my_custom_backend2)
 # in different environments.
 ```
 
-Of course `development?` and `production?` is not real methods.
-You have to detect environment yourself.
+Of course `development?`, `test?` and `production?` are not real methods.
+You have to detect environment yourself somehow.
 
 While possible, i strongly discourage to use more than two backends
 (One default, another is required in certain situations for some reason).
@@ -226,6 +241,20 @@ For now you may just mock `ActiveSMS.send_sms` and check it was executed.
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fedcomp/active_sms
+
+## Submitting a Pull Request
+1. [Fork][fork] the [official repository][repo].
+2. [Create a topic branch.][branch]
+3. Implement your feature or bug fix.
+4. Add, commit, and push your changes.
+5. [Submit a pull request.][pr]
+
+* Please add tests if you changed code. Contributions without tests won't be accepted.
+* If you don't know how to add tests, please put in a PR and leave a comment
+  asking for help.
+* Please don't update the Gem version.
+
+( Inspired by https://github.com/thoughtbot/factory_girl/blob/master/CONTRIBUTING.md )
 
 ## License
 
