@@ -163,6 +163,24 @@ Here's how you can achieve that:
 ```ruby
 ActiveSMS.configure do |c|
   if development?
+    c.register_backend :my_custom_backend,
+                       ActiveSMS::Backend::Logger,
+                       logger: Logger.new(STDOUT),
+                       severity: :info
+
+   # You can also specify different formatter for second one
+   logger = Logger.new(STDOUT)
+   logger.formatter = proc do |severity, datetime, progname, msg|
+     "[MYBackend2]: #{msg}\n"
+   end
+
+    c.register_backend :my_custom_backend2,
+                       ActiveSMS::Backend::Logger,
+                       logger: logger,
+                       severity: :info
+  end
+
+  if test?
     c.register_backend :my_custom_backend,  ActiveSMS::Backend::NullSender
     c.register_backend :my_custom_backend2, ActiveSMS::Backend::NullSender
   end
@@ -189,7 +207,7 @@ ActiveSMS.send_sms(phone, text)
 # Uses backend you specify
 ActiveSMS.send_sms(phone, text, backend: :my_custom_backend2)
 
-# depending on your initializer it will use different backends
+# depending on your initializer it may use different backends (like in this example)
 # in different environments.
 ```
 
