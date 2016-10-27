@@ -36,11 +36,11 @@ end
 Now, whenever you need to send SMS, just do:
 
 ```ruby
-phone = "799999999"
+phone = "+10000000000"
 text = "My sms text"
 
 # Should print to console [SMS] 79999999999: text
-ActiveSMS.send_sms("79999999999", "text")
+ActiveSMS.send_sms(phone, text)
 ```
 
 Now your code is capable of sending sms.
@@ -54,7 +54,7 @@ which actually just print sms contents to console.
 To actually send sms you need *gem-provider*
 or your own simple class.
 
-At this moment i made ready to use implementation for only one sms service:
+Here's a list of my implementations for some sms services.
 
 <table>
   <tr>
@@ -63,15 +63,23 @@ At this moment i made ready to use implementation for only one sms service:
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/Fedcomp/active_sms-backend-smsru">
-        active_sms-backend-smsru
+      <a href="https://github.com/Fedcomp/active_sms-backend-aws">
+        active_sms-backend-aws
       </a>
     </td>
-    <td><a href="https://sms.ru">sms-ru</a></td>
+    <td><a href="https://aws.amazon.com/ru/documentation/sns/">Amazon Web Services SNS</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/Fedcomp/active_sms-backend-smsru">
+        active_sms-backend-smsru
+      </a> (russian)
+    </td>
+    <td><a href="https://sms.ru">sms.ru</a></td>
   </tr>
 </table>
 
-The gem documentation should be self explanatory.
+These gems documentation should be self explanatory.
 
 ### Writing your own sms backend
 
