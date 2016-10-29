@@ -24,6 +24,13 @@ module ActiveSMS::Backend
 
     protected
 
+    # Returns ActiveSMS::Reponse object with status and meta
+    #
+    # @param status [Symbol]
+    #   Query status, any other than :success considered as failure
+    # @param meta [Hash]
+    #   Optional metadata you can return from api or implementation
+    # @return [ActiveSMS::Reponse] Response object with meta and status
     def respond_with_status(status, meta: nil)
       ActiveSMS::Response.new(status: status, meta: meta)
     end
