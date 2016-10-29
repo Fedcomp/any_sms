@@ -6,6 +6,6 @@ require "active_sms/configuration"
 require "active_sms/response"
 require "active_sms/sending"
 
-# rubocop:ignore Style/Documentation
+# :nodoc:
 module ActiveSMS
 end

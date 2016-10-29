@@ -7,7 +7,7 @@ module ActiveSMS::Backend
     # accept secrets which were defined in initializer
     # or other configuration options if any.
     #
-    # @params [Hash] List of arguments received from configure code.
+    # @param params [Hash] List of arguments received from configure code.
     def initialize(params = {})
     end
 
@@ -15,8 +15,8 @@ module ActiveSMS::Backend
     # Every subclass should implement method itself.
     # Raises error in default implementation.
     #
-    # @_phone [String] Phone number to send sms (not used in this implementation)
-    # @_text  [String] Sms text (not used in this implementation)
+    # @param _phone [String] Phone number to send sms (not used in this implementation)
+    # @param _text  [String] Sms text (not used in this implementation)
     def send_sms(_phone, _text)
       raise NotImplementedError,
             "You should create your own class for every sms service you use"

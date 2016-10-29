@@ -1,11 +1,11 @@
-# Sms backend for logging outgoing sms
-# instead of actually sending them
+# Sms backend for logging outgoing sms instead of actually sending them
 class ActiveSMS::Backend::Logger < ActiveSMS::Backend::Base
-  # has anyone heard how to receive log levels from logger itself?
+  # Log level validation, all invalid values lead to ArgumentError.
+  # Has anyone heard how to receive log levels from ruby logger itself?
   LOG_SEVERITY = [:debug, :info, :warn, :error, :fatal, :unknown].freeze
 
   # @param logger [::Logger] Class implementing logger interface
-  # @param severity [Symbol] Backend will use log severity you provide
+  # @param severity [Symbol] Severity to log with
   def initialize(logger: Logger.new(STDOUT), severity: :info)
     @logger   = logger
     @severity = severity
@@ -18,8 +18,8 @@ class ActiveSMS::Backend::Logger < ActiveSMS::Backend::Base
 
   # Method that sends phone and text to logger
   #
-  # @phone [String] Phone number to send sms
-  # @text  [String] Sms text
+  # @param phone [String] Phone number to send sms
+  # @param text  [String] Sms text
   def send_sms(phone, text)
     @logger.send(@severity, "[SMS] #{phone}: #{text}")
     respond_with_status :success

@@ -30,7 +30,7 @@ module ActiveSMS
 
     # Specify default sms backend. It must be registered.
     #
-    # @value [Symbol] Backend key which will be used as default
+    # @param value [Symbol] Backend key which will be used as default
     def default_backend=(value)
       raise ArgumentError, "default_backend must be a symbol!" unless value.is_a? Symbol
 
@@ -43,9 +43,10 @@ module ActiveSMS
 
     # Register sms provider backend
     #
-    # @key [Symbol] Key for acessing backend in any part of ActiveSMS
-    # @classname [Class] Real class implementation of sms backend
-    # @params [Hash] Optional params for backend. Useful for passing tokens and options
+    # @param key [Symbol] Key for acessing backend in any part of ActiveSMS
+    # @param classname [Class] Real class implementation of sms backend
+    # @param params [Hash]
+    #   Optional params for backend. Useful for passing tokens and options
     def register_backend(key, classname, params = {})
       raise ArgumentError, "backend key must be a symbol!" unless key.is_a? Symbol
 
@@ -62,7 +63,7 @@ module ActiveSMS
 
     # Removes registered sms backend
     #
-    # @key [Symbol] Key of already registered backend
+    # @param key [Symbol] Key of already registered backend
     def remove_backend(key)
       if key == default_backend
         raise ArgumentError, "Removing default_backend is prohibited"
