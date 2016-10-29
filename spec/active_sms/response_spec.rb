@@ -1,6 +1,11 @@
 require "spec_helper"
 
 describe ActiveSMS::Response do
+  it "allows meta to be passed by backends" do
+    response = described_class.new(status: :success, meta: { funds: 42 })
+    expect(response.meta).to eq(funds: 42)
+  end
+
   describe ".success?" do
     it "is true when response succeed" do
       response = described_class.new(status: :success)

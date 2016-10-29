@@ -24,8 +24,8 @@ module ActiveSMS::Backend
 
     protected
 
-    def respond_with_status(status)
-      ActiveSMS::Response.new(status: status)
+    def respond_with_status(status, meta: nil)
+      ActiveSMS::Response.new(status: status, meta: meta)
     end
   end
 end

@@ -24,12 +24,12 @@ require "active_sms"
 require "logger"
 
 ActiveSMS.configure do |config|
-  c.register_backend :my_backend_name,
-                     ActiveSMS::Backend::Logger,
-                     logger: Logger.new(STDOUT),
-                     severity: :info
+  config.register_backend :my_backend_name,
+                          ActiveSMS::Backend::Logger,
+                          logger: Logger.new(STDOUT),
+                          severity: :info
 
-  c.default_backend = :my_backend_name
+  config.default_backend = :my_backend_name
 end
 ```
 
@@ -39,7 +39,7 @@ Now, whenever you need to send SMS, just do:
 phone = "+10000000000"
 text = "My sms text"
 
-# Should print to console [SMS] 79999999999: text
+# Should print to console [SMS] +10000000000: text
 ActiveSMS.send_sms(phone, text)
 ```
 
@@ -104,8 +104,11 @@ class ActiveSMS::Backend::MyCustomBackend < ActiveSMS::Backend::Base
     # if everything went fine, you may use helper from base class:
     respond_with_status :success
 
-    # Or if you want to return failed status code:
+    # any other than :success response considered as failure
     respond_with_status :not_enough_funds
+
+    # optionally you may return some metadata
+    respond_with_status :success, meta: { funds_left: 42 }
   end
 end
 ```
@@ -138,6 +141,10 @@ else
   fail_status = result.status
   # :not_enough_funds for example
 end
+
+# (optionally) Read metadata if any.
+# Not recommended for control flow.
+result.meta
 ```
 
 ### Multiple backends
