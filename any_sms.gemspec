@@ -1,16 +1,16 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "active_sms/version"
+require "any_sms/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "active_sms"
-  spec.version       = ActiveSMS::VERSION
+  spec.name          = "any_sms"
+  spec.version       = AnySMS::VERSION
   spec.authors       = ["Fedcomp"]
   spec.email         = ["aglergen@gmail.com"]
 
   spec.summary       = "Easily send sms using various sms backends!"
 
-  spec.homepage      = "https://github.com/Fedcomp/active_sms"
+  spec.homepage      = "https://github.com/Fedcomp/any_sms"
   spec.license       = "MIT"
 
   unless spec.respond_to?(:metadata)

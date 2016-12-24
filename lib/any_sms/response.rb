@@ -1,6 +1,6 @@
 # Response object.
-# Generated on each ActiveSMS.send_sms by backend implementations.
-class ActiveSMS::Response
+# Generated on each AnySMS.send_sms by backend implementations.
+class AnySMS::Response
   # see initialize
   attr_reader :status
 

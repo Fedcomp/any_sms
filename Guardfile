@@ -9,7 +9,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(rspec.spec_files)
 
   # Lib files
-  watch(%r{^lib/active_sms.rb$}) { rspec.spec_dir }
+  watch(%r{^lib/any_sms.rb$}) { rspec.spec_dir }
   watch(%r{^lib/(.+)\.rb$}) { |m| rspec.spec.call(m[1]) }
   watch(%r{^spec/support/(.+)\.rb$}) { |m| rspec.spec.call(m[1]) }
 end

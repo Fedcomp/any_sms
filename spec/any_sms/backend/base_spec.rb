@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe ActiveSMS::Backend::Base do
+describe AnySMS::Backend::Base do
   describe "(protected) .respond_with_status" do
-    class MyBackend < ActiveSMS::Backend::Base
+    class MyBackend < AnySMS::Backend::Base
       def send_sms(_phone, _text)
         respond_with_status :success
       end
@@ -16,7 +16,7 @@ describe ActiveSMS::Backend::Base do
     subject { MyBackend.new.send_sms("", "") }
 
     it "returns response object" do
-      expect(subject.class).to be(ActiveSMS::Response)
+      expect(subject.class).to be(AnySMS::Response)
     end
 
     it "returns status you specify" do

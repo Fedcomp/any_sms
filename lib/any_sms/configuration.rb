@@ -1,21 +1,21 @@
 # :nodoc:
-module ActiveSMS
-  # @return [ActiveSMS::Configuration] object with configuration options
+module AnySMS
+  # @return [AnySMS::Configuration] object with configuration options
   def self.config
     @@config ||= Configuration.new
   end
 
-  # Allows to configure ActiveSMS options and register backends
+  # Allows to configure AnySMS options and register backends
   def self.configure
     yield(config)
   end
 
-  # resets ActiveSMS configuration to default
+  # resets AnySMS configuration to default
   def self.reset!
     @@config = nil
   end
 
-  # Configuration object for ActiveSMS
+  # Configuration object for AnySMS
   class Configuration
     # returns key of the default sms backend
     attr_reader :default_backend
@@ -24,7 +24,7 @@ module ActiveSMS
     attr_reader :backends
 
     def initialize
-      register_backend :null_sender, ActiveSMS::Backend::NullSender
+      register_backend :null_sender, AnySMS::Backend::NullSender
       self.default_backend = :null_sender
     end
 
@@ -43,7 +43,7 @@ module ActiveSMS
 
     # Register sms provider backend
     #
-    # @param key [Symbol] Key for acessing backend in any part of ActiveSMS
+    # @param key [Symbol] Key for acessing backend in any part of AnySMS
     # @param classname [Class] Real class implementation of sms backend
     # @param params [Hash]
     #   Optional params for backend. Useful for passing tokens and options

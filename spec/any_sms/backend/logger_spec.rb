@@ -1,7 +1,7 @@
 require "spec_helper"
 require "logger"
 
-describe ActiveSMS::Backend::Logger do
+describe AnySMS::Backend::Logger do
   describe "#initialize" do
     it "checks logger implements logger interface" do
       expect do

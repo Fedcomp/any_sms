@@ -1,9 +1,9 @@
 require "spec_helper"
-require "active_sms/matchers/send_sms"
+require "any_sms/matchers/send_sms"
 
 describe "SendSMS matcher" do
   it "pass if sms was sent" do
-    expect { ActiveSMS.send_sms("", "") }.to send_sms
+    expect { AnySMS.send_sms("", "") }.to send_sms
   end
 
   it "does not pass if sms was not sent" do
@@ -14,24 +14,24 @@ describe "SendSMS matcher" do
 
   it "returns mocked response object" do
     result = nil
-    expect { result = ActiveSMS.send_sms("", "") }.to send_sms
-    expect(result.class).to be(ActiveSMS::Response)
+    expect { result = AnySMS.send_sms("", "") }.to send_sms
+    expect(result.class).to be(AnySMS::Response)
   end
 
   context "with recepient and text specified" do
     it "pass if they match" do
       expect do
-        ActiveSMS.send_sms("+10000000000", "test text")
+        AnySMS.send_sms("+10000000000", "test text")
       end.to send_sms(to: "+10000000000", text: "test text")
     end
 
     it "does not pass in case they don't match" do
       expect do
-        ActiveSMS.send_sms("+20000000000", "test text")
+        AnySMS.send_sms("+20000000000", "test text")
       end.not_to send_sms(to: "+10000000000", text: "test text")
 
       expect do
-        ActiveSMS.send_sms("+10000000000", "test message")
+        AnySMS.send_sms("+10000000000", "test message")
       end.not_to send_sms(to: "+10000000000", text: "test text")
     end
   end
@@ -39,7 +39,7 @@ describe "SendSMS matcher" do
   context "with return options" do
     before do
       @result = nil
-      expect { @result = ActiveSMS.send_sms("", "") }.to send_sms
+      expect { @result = AnySMS.send_sms("", "") }.to send_sms
         .and_return(status: :success, meta: { funds: 40 })
     end
 
@@ -76,7 +76,7 @@ describe "SendSMS matcher" do
     context "when negated" do
       it "for default usage when expectation suddenly met" do
         expect do
-          expect { ActiveSMS.send_sms("+10000000000", "test") }.to_not send_sms
+          expect { AnySMS.send_sms("+10000000000", "test") }.to_not send_sms
         end.to raise_error(
           RSpec::Expectations::ExpectationNotMetError,
           'expected block to not send any sms message, instead ' \

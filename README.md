@@ -1,7 +1,7 @@
-# ActiveSMS
+# AnySMS
 
-[![Build Status](https://travis-ci.org/Fedcomp/active_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/active_sms)
-[![Gem Version](https://badge.fury.io/rb/active_sms.svg)](https://badge.fury.io/rb/active_sms)
+[![Build Status](https://travis-ci.org/Fedcomp/any_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/any_sms)
+[![Gem Version](https://badge.fury.io/rb/any_sms.svg)](https://badge.fury.io/rb/any_sms)
 
 Unified way to send SMS in ruby!
 Allows you to switch SMS services
@@ -14,18 +14,18 @@ Sending SMS is not pain anymore!
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "active_sms"
+gem "any_sms"
 ```
 
 Then somewhere in your initialization code:
 
 ```ruby
-require "active_sms"
+require "any_sms"
 require "logger"
 
-ActiveSMS.configure do |config|
+AnySMS.configure do |config|
   config.register_backend :my_backend_name,
-                          ActiveSMS::Backend::Logger,
+                          AnySMS::Backend::Logger,
                           logger: Logger.new(STDOUT),
                           severity: :info
 
@@ -40,7 +40,7 @@ phone = "+10000000000"
 text = "My sms text"
 
 # Should print to console [SMS] +10000000000: text
-ActiveSMS.send_sms(phone, text)
+AnySMS.send_sms(phone, text)
 ```
 
 Now your code is capable of sending sms.
@@ -49,7 +49,7 @@ Later you may add any sms-backend you want, or even write your own.
 ### Adding real sms backend
 
 If you followed steps above, you code still doesn't *really* send sms.
-It uses `ActiveSMS::Backend::Logger`
+It uses `AnySMS::Backend::Logger`
 which actually just print sms contents to console.
 To actually send sms you need *gem-provider*
 or your own simple class.
@@ -63,16 +63,16 @@ Here's a list of my implementations for some sms services.
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/Fedcomp/active_sms-backend-aws">
-        active_sms-backend-aws
+      <a href="https://github.com/Fedcomp/any_sms-backend-aws">
+        any_sms-backend-aws
       </a>
     </td>
     <td><a href="https://aws.amazon.com/ru/documentation/sns/">Amazon Web Services SNS</a></td>
   </tr>
   <tr>
     <td>
-      <a href="https://github.com/Fedcomp/active_sms-backend-smsru">
-        active_sms-backend-smsru
+      <a href="https://github.com/Fedcomp/any_sms-backend-smsru">
+        any_sms-backend-smsru
       </a> (russian)
     </td>
     <td><a href="https://sms.ru">sms.ru</a></td>
@@ -83,12 +83,12 @@ These gems documentation should be self explanatory.
 
 ### Writing your own sms backend
 
-Here's simple class that can be used by ActiveSMS:
+Here's simple class that can be used by AnySMS:
 
 ```ruby
-require "active_sms"
+require "any_sms"
 
-class ActiveSMS::Backend::MyCustomBackend < ActiveSMS::Backend::Base
+class AnySMS::Backend::MyCustomBackend < AnySMS::Backend::Base
   def initialize(params = {})
     # your initialization which parses params if needed.
     # the params here is the ones you set in initializer
@@ -116,12 +116,12 @@ end
 Then in initializer:
 
 ```ruby
-require "active_sms"
+require "any_sms"
 require_relative "mycustombackend"
 
-ActiveSMS.configure do |c|
+AnySMS.configure do |c|
   c.register_backend :my_custom_backend,
-                     ActiveSMS::Backend::MyCustomBackend,
+                     AnySMS::Backend::MyCustomBackend,
                      token: ENV["token"]
 
   c.default_backend = :my_custom_backend
@@ -132,7 +132,7 @@ Usage:
 
 ```ruby
 # somewhere in your code
-result = ActiveSMS.send_sms(phone, text)
+result = AnySMS.send_sms(phone, text)
 
 if result.success?
   # do stuff
@@ -152,15 +152,15 @@ result.meta
 You can specify which backend to use per call:
 
 ```ruby
-require "active_sms"
+require "any_sms"
 require_relative "mycustombackend"
 
-ActiveSMS.configure do |c|
+AnySMS.configure do |c|
   c.register_backend :my_custom_backend,
-                     ActiveSMS::Backend::MyCustomBackend,
+                     AnySMS::Backend::MyCustomBackend,
                      token: ENV["token"]
 
-  c.register_backend :null_sender, ActiveSMS::Backend::NullSender
+  c.register_backend :null_sender, AnySMS::Backend::NullSender
   c.default_backend = :my_custom_backend
 end
 
@@ -168,10 +168,10 @@ phone = "799999999"
 text = "My sms text"
 
 # Uses default backend
-ActiveSMS.send_sms(phone, text)
+AnySMS.send_sms(phone, text)
 
 # Uses backend you specify
-ActiveSMS.send_sms(phone, text, backend: :null_sender)
+AnySMS.send_sms(phone, text, backend: :null_sender)
 ```
 
 ### Real life example
@@ -186,14 +186,14 @@ to actually send them using your service.
 Here's how you can achieve that:
 
 ```ruby
-require "active_sms"
+require "any_sms"
 require_relative "mycustombackend"
 require_relative "mycustombackend2"
 
-ActiveSMS.configure do |c|
+AnySMS.configure do |c|
   if development?
     c.register_backend :my_custom_backend,
-                       ActiveSMS::Backend::Logger,
+                       AnySMS::Backend::Logger,
                        logger: Logger.new(STDOUT),
                        severity: :info
 
@@ -204,24 +204,24 @@ ActiveSMS.configure do |c|
    end
 
     c.register_backend :my_custom_backend2,
-                       ActiveSMS::Backend::Logger,
+                       AnySMS::Backend::Logger,
                        logger: logger,
                        severity: :info
   end
 
   if test?
     # Null sender does nothing when called for sending sms
-    c.register_backend :my_custom_backend,  ActiveSMS::Backend::NullSender
-    c.register_backend :my_custom_backend2, ActiveSMS::Backend::NullSender
+    c.register_backend :my_custom_backend,  AnySMS::Backend::NullSender
+    c.register_backend :my_custom_backend2, AnySMS::Backend::NullSender
   end
 
   if production?
     c.register_backend :my_custom_backend,
-                       ActiveSMS::Backend::MyCustomBackend,
+                       AnySMS::Backend::MyCustomBackend,
                        token: ENV["token"]
 
     c.register_backend :my_custom_backend2,
-                       ActiveSMS::Backend::MyCustomBackend2,
+                       AnySMS::Backend::MyCustomBackend2,
                        token: ENV["token2"]
   end
 
@@ -232,10 +232,10 @@ phone = "799999999"
 text = "My sms text"
 
 # Uses default backend
-ActiveSMS.send_sms(phone, text)
+AnySMS.send_sms(phone, text)
 
 # Uses backend you specify
-ActiveSMS.send_sms(phone, text, backend: :my_custom_backend2)
+AnySMS.send_sms(phone, text, backend: :my_custom_backend2)
 
 # depending on your initializer it may use different backends (like in this example)
 # in different environments.
@@ -251,14 +251,14 @@ It may make your code mess ;)
 ## Testing
 
 I am planning to make rspec matcher to test if sms was sent.
-For now you may just mock `ActiveSMS.send_sms` and check it was executed.
+For now you may just mock `AnySMS.send_sms` and check it was executed.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Fedcomp/active_sms
+Bug reports and pull requests are welcome on GitHub at https://github.com/Fedcomp/any_sms
 
 ## Submitting a Pull Request
-1. Fork the [official repository](https://github.com/Fedcomp/active_sms).
+1. Fork the [official repository](https://github.com/Fedcomp/any_sms).
 2. Create a topic branch.
 3. Implement your feature or bug fix.
 4. Add, commit, and push your changes.

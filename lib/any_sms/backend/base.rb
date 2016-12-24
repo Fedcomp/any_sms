@@ -1,4 +1,4 @@
-module ActiveSMS::Backend
+module AnySMS::Backend
   # Base class for any sms provider service.
   # Provides basic structure and helper methods.
   # While not necessary to be subclassed now, may be necessary later.
@@ -8,8 +8,7 @@ module ActiveSMS::Backend
     # or other configuration options if any.
     #
     # @param params [Hash] List of arguments received from configure code.
-    def initialize(params = {})
-    end
+    def initialize(params = {}); end
 
     # Interface for sending sms.
     # Every subclass should implement method itself.
@@ -24,15 +23,15 @@ module ActiveSMS::Backend
 
     protected
 
-    # Returns ActiveSMS::Reponse object with status and meta
+    # Returns AnySMS::Reponse object with status and meta
     #
     # @param status [Symbol]
     #   Query status, any other than :success considered as failure
     # @param meta [Hash]
     #   Optional metadata you can return from api or implementation
-    # @return [ActiveSMS::Reponse] Response object with meta and status
+    # @return [AnySMS::Reponse] Response object with meta and status
     def respond_with_status(status, meta: nil)
-      ActiveSMS::Response.new(status: status, meta: meta)
+      AnySMS::Response.new(status: status, meta: meta)
     end
   end
 end

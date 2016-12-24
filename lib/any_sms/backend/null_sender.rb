@@ -1,6 +1,6 @@
 # Sms backend for mocking sending.
 # Purely for usage in tests.
-class ActiveSMS::Backend::NullSender < ActiveSMS::Backend::Base
+class AnySMS::Backend::NullSender < AnySMS::Backend::Base
   # Method that emulates sms sending. Does nothing.
   #
   # @param _phone [String] Phone number to send sms (not used in this implementation)

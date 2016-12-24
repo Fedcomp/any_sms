@@ -11,7 +11,7 @@ RSpec::Matchers.define :send_sms do |options|
 
     # we need to know actual phone and text for failure message
     called = false
-    allow(ActiveSMS).to receive(:send_sms) do |actual_phone, actual_text|
+    allow(AnySMS).to receive(:send_sms) do |actual_phone, actual_text|
       puts "called"
       @actual_phone = actual_phone
       @actual_text = actual_text
@@ -32,7 +32,7 @@ RSpec::Matchers.define :send_sms do |options|
   end
 
   chain :and_return do |return_options|
-    @result = ActiveSMS::Response.new(return_options)
+    @result = AnySMS::Response.new(return_options)
   end
 
   failure_message do
@@ -63,6 +63,6 @@ RSpec::Matchers.define :send_sms do |options|
   private
 
   def result
-    @result ||= ActiveSMS::Response.new(status: :success)
+    @result ||= AnySMS::Response.new(status: :success)
   end
 end
