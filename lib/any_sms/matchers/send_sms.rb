@@ -38,13 +38,13 @@ RSpec::Matchers.define :send_sms do |options|
   failure_message do
     message = "expected block to send "
 
-    if @phone && @text
-      message += "sms message" \
-                 " to phone number \"#{@phone}\"" \
-                 " with text \"#{@text}\""
-    else
-      message += "any sms message"
-    end
+    message += if @phone && @text
+                 "sms message" \
+                            " to phone number \"#{@phone}\"" \
+                            " with text \"#{@text}\""
+               else
+                 "any sms message"
+               end
 
     "#{message}, nothing was sent"
   end

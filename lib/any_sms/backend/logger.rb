@@ -2,7 +2,7 @@
 class AnySMS::Backend::Logger < AnySMS::Backend::Base
   # Log level validation, all invalid values lead to ArgumentError.
   # Has anyone heard how to receive log levels from ruby logger itself?
-  LOG_SEVERITY = [:debug, :info, :warn, :error, :fatal, :unknown].freeze
+  LOG_SEVERITY = %i[debug info warn error fatal unknown].freeze
 
   # @param logger [::Logger] Class implementing logger interface
   # @param severity [Symbol] Severity to log with
