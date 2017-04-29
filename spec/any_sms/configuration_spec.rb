@@ -39,7 +39,7 @@ describe AnySMS do
   end
 
   describe "#configure" do
-    describe "#default_backend=" do
+    describe ".default_backend=" do
       it "works with proper params" do
         AnySMS.configure do |c|
           c.register_backend :base, AnySMS::Backend::Base
@@ -57,7 +57,7 @@ describe AnySMS do
         end
       end
 
-      it "does not allow any other values than symbol" do
+      it "only allow symbol as value" do
         AnySMS.configure do |c|
           expect { c.default_backend = "sms_backendpls?" }.to raise_exception(
             ArgumentError, "default_backend must be a symbol!"
@@ -78,7 +78,7 @@ describe AnySMS do
                                                   })
       end
 
-      it "ensures backend_key is a symbol" do
+      it "only allow symbol as backend_key" do
         AnySMS.configure do |c|
           expect do
             c.register_backend "backend pls?", AnySMS::Backend::Base

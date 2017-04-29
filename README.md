@@ -3,11 +3,8 @@
 [![Build Status](https://travis-ci.org/Fedcomp/any_sms.svg?branch=master)](https://travis-ci.org/Fedcomp/any_sms)
 [![Gem Version](https://badge.fury.io/rb/any_sms.svg)](https://badge.fury.io/rb/any_sms)
 
-Unified way to send SMS in ruby!
-Allows you to switch SMS services
-without having to rewrite any code that actually sends SMS.
-Supports multiple backends.
-Sending SMS is not pain anymore!
+Simple and flexible solution to send sms in ruby,
+supporting variety of sms services.
 
 ## Installation and usage
 
@@ -258,8 +255,8 @@ For now you may just mock `AnySMS.send_sms` and check it was executed.
 Bug reports and pull requests are welcome on GitHub at https://github.com/Fedcomp/any_sms
 
 ## Submitting a Pull Request
-1. Fork the [official repository](https://github.com/Fedcomp/any_sms).
-2. Create a topic branch.
+1. Fork the [official repository](https://github.com/Fedcomp/any_sms/fork).
+2. Create a feature/bugfix branch.
 3. Implement your feature or bug fix.
 4. Add, commit, and push your changes.
 5. Submit a pull request.

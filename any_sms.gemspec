@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Fedcomp"]
   spec.email         = ["aglergen@gmail.com"]
 
-  spec.summary       = "Easily send sms using various sms backends!"
+  spec.summary       = "Simple and flexible solution to send sms in ruby, " \
+                       "supporting variety of sms services."
 
   spec.homepage      = "https://github.com/Fedcomp/any_sms"
   spec.license       = "MIT"
@@ -26,7 +27,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
 

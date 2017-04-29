@@ -7,21 +7,19 @@ describe AnySMS do
 
     it "successfully sends sms with proper params" do
       expect_any_instance_of(AnySMS::Backend::NullSender).to receive(:send_sms)
-        .with(phone, sms_text)
-        .and_return(AnySMS::Response.new(status: :success))
+        .with(phone, sms_text).and_call_original
 
       AnySMS.send_sms(phone, sms_text)
     end
 
-    specify "backend receives own params during instantination" do
+    specify "backend receives defined params during instantination" do
       params = { token: :secret }
 
-      mock = AnySMS::Backend::NullSender.new
-      backend = AnySMS::Backend::NullSender
-      expect(backend).to receive(:new).with(params).and_return(mock)
+      expect(AnySMS::Backend::NullSender).to receive(:new)
+        .with(params).and_call_original
 
       AnySMS.configure do |c|
-        c.register_backend :test, backend, params
+        c.register_backend :test, AnySMS::Backend::NullSender, params
         c.default_backend = :test
       end
 
@@ -31,7 +29,7 @@ describe AnySMS do
     context "non-default backend" do
       it "should be available in sending" do
         expect_any_instance_of(AnySMS::Backend::Base)
-          .to receive(:send_sms).and_return(nil)
+          .to receive(:send_sms)
 
         AnySMS.configure do |c|
           c.register_backend :special_backend, AnySMS::Backend::Base
