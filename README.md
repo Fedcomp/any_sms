@@ -11,7 +11,7 @@ supporting variety of sms services.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "any_sms"
+gem "any_sms", "~> 0.4.0"
 ```
 
 Then somewhere in your initialization code:

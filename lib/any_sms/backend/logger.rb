@@ -20,7 +20,7 @@ class AnySMS::Backend::Logger < AnySMS::Backend::Base
   #
   # @param phone [String] Phone number to send sms
   # @param text  [String] Sms text
-  def send_sms(phone, text)
+  def send_sms(phone, text, _args = {})
     @logger.send(@severity, "[SMS] #{phone}: #{text}")
     respond_with_status :success
   end

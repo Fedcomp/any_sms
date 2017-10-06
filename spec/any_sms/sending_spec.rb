@@ -4,12 +4,13 @@ describe AnySMS do
   describe "#send_sms" do
     let(:phone) { "+100000000" }
     let(:sms_text) { "sms text" }
+    let(:additional_args) { { template_id: 1 } }
 
-    it "successfully sends sms with proper params" do
+    it "successfully sends sms with proper params and args" do
       expect_any_instance_of(AnySMS::Backend::NullSender).to receive(:send_sms)
-        .with(phone, sms_text).and_call_original
+        .with(phone, sms_text, additional_args).and_call_original
 
-      AnySMS.send_sms(phone, sms_text)
+      AnySMS.send_sms(phone, sms_text, template_id: 1)
     end
 
     specify "backend receives defined params during instantination" do

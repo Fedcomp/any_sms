@@ -5,11 +5,12 @@ module AnySMS
     #
     # @param phone [String] Phone number for sms
     # @param text  [String] Text for sms
-    # @param args  [Hash] Additional options for delivery. Currently only :backend
+    # @param backend  [Symbol] Keyword argument to specify non-default backend
+    # @param args  [Hash] Additional options for delivery bypassed to final backend
     def send_sms(phone, text, args = {})
       backend_name = args.delete(:backend)
       backend_class(backend_name).new(backend_params(backend_name))
-                                 .send_sms(phone, text)
+                                 .send_sms(phone, text, args)
     end
 
     private

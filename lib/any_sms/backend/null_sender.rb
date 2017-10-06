@@ -5,7 +5,7 @@ class AnySMS::Backend::NullSender < AnySMS::Backend::Base
   #
   # @param _phone [String] Phone number to send sms (not used in this implementation)
   # @param _text  [String] Sms text (not used in this implementation)
-  def send_sms(_phone, _text)
+  def send_sms(_phone, _text, _args = {})
     respond_with_status :success
   end
 end
