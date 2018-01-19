@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "guard", "~> 2.14"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "guard-yard"
   spec.add_development_dependency "pry-byebug", "~> 3.4"
   spec.add_development_dependency "rubocop"
-  spec.add_development_dependency "guard-yard"
 end

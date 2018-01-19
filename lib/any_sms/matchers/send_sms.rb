@@ -66,3 +66,4 @@ RSpec::Matchers.define :send_sms do |options|
     @result ||= AnySMS::Response.new(status: :success)
   end
 end
+# rubocop:enable Metrics/BlockLength
