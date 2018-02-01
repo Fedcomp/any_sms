@@ -1,0 +1,17 @@
+PATH
+  remote: ../..
+  specs:
+    any_sms (0.4.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  any_sms!
+
+BUNDLED WITH
+   1.16.1
